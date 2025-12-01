@@ -1,0 +1,23 @@
+/* Fuente principal */
+body { 
+    font-family: 'Inter', sans-serif; 
+}
+
+/* Animación de entrada suave */
+.animate-fade-in { 
+    animation: fadeIn 0.5s ease-out; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Patrón decorativo de fondo (puntos) */
+.certificate-pattern {
+    background-color: #ffffff;
+    background-image: radial-gradient(#312e81 0.5px, transparent 0.5px), radial-gradient(#312e81 0.5px, #ffffff 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    opacity: 0.05;
+}
