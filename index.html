@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificación - Asoc. Estudiantes Trabajo Social</title>
     
-    <!-- Librerías Externas -->
+    <!-- Librerías Externas (No borrar) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Estilos CSS incorporados para asegurar que carguen correctamente */
+        /* --- ESTILOS CSS --- */
         body { 
             font-family: 'Inter', sans-serif; 
         }
@@ -38,7 +38,7 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
 
-    <!-- Navbar -->
+    <!-- Barra de Navegación -->
     <nav class="bg-indigo-900 text-white p-4 shadow-md">
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -51,11 +51,11 @@
 
     <!-- Contenido Principal -->
     <main class="flex-grow flex items-center justify-center p-4 relative overflow-hidden">
-        <!-- Decoración de fondo -->
+        <!-- Fondo decorativo -->
         <div class="absolute inset-0 certificate-pattern pointer-events-none"></div>
 
         <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden z-10 border border-slate-100">
-            <!-- Cabecera -->
+            <!-- Encabezado de la tarjeta -->
             <div class="bg-white p-8 pb-6 text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-50 text-indigo-900 mb-4">
                     <i class="fa-solid fa-address-card text-2xl"></i>
@@ -64,7 +64,7 @@
                 <p class="text-slate-500 text-sm">Ingresa tu Nombre y Apellido completo para validar tu participación en el taller.</p>
             </div>
 
-            <!-- Formulario -->
+            <!-- Buscador -->
             <div class="px-8 pb-8">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -81,21 +81,20 @@
                 </button>
             </div>
 
-            <!-- Resultados -->
+            <!-- Área de Resultados -->
             <div id="resultArea" class="hidden border-t border-slate-100 bg-slate-50 p-6 animate-fade-in">
-                <!-- Se llena con JS -->
+                <!-- Aquí aparecerá la información -->
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Pie de página -->
     <footer class="text-center py-6 text-slate-400 text-xs">
         &copy; 2024 Asociación de Estudiantes de Trabajo Social.
     </footer>
 
-    <!-- Script JS incorporado -->
     <script>
-        // --- Base de datos de asistentes ---
+        // --- BASE DE DATOS DE ASISTENTES ---
         const attendeesDB = [
             {
                 name: "Ignacio Loja",
@@ -123,12 +122,13 @@
             }
         ];
 
-        // --- Función principal de verificación ---
+        // --- FUNCIONES DEL SISTEMA ---
+
         function verifyAttendance() {
             const input = document.getElementById('searchInput').value.trim().toLowerCase();
             const resultArea = document.getElementById('resultArea');
             
-            // Limpiar resultados anteriores
+            // Limpiar pantalla anterior
             resultArea.innerHTML = '';
             resultArea.classList.remove('hidden');
 
@@ -137,11 +137,12 @@
                 return;
             }
 
-            // Mostrar mensaje de carga
+            // Mostrar mensaje de "Cargando..."
             resultArea.innerHTML = '<div class="text-center text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Buscando en registros...</div>';
 
+            // Simular pequeña espera para realismo
             setTimeout(() => {
-                // Búsqueda (insensible a mayúsculas/minúsculas)
+                // Buscar coincidencia (ignora mayúsculas/minúsculas)
                 const attendee = attendeesDB.find(p => 
                     p.name.toLowerCase().includes(input)
                 );
@@ -154,11 +155,11 @@
             }, 600);
         }
 
-        // --- Mostrar éxito ---
         function showSuccess(person) {
             const resultArea = document.getElementById('resultArea');
             
             let statusBadge = '';
+
             if (person.status === 'verified') {
                 statusBadge = `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"><i class="fa-solid fa-circle-check mr-1"></i> Asistencia Confirmada</span>`;
             } else if (person.status === 'pending') {
@@ -193,7 +194,6 @@
             `;
         }
 
-        // --- Mostrar no encontrado ---
         function showNotFound() {
             const resultArea = document.getElementById('resultArea');
             resultArea.innerHTML = `
@@ -212,13 +212,12 @@
             `;
         }
 
-        // --- Mostrar error ---
         function showError(msg) {
             const resultArea = document.getElementById('resultArea');
             resultArea.innerHTML = `<div class="text-red-500 text-center text-sm"><i class="fa-solid fa-circle-exclamation mr-1"></i> ${msg}</div>`;
         }
 
-        // Event listener para tecla Enter
+        // Activar búsqueda con la tecla ENTER
         document.getElementById('searchInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 verifyAttendance();
@@ -226,3 +225,4 @@
         });
     </script>
 </body>
+</html>
