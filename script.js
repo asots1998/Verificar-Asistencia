@@ -1,4 +1,4 @@
-// --- Base de datos de asistentes ---
+// --- BASE DE DATOS DE ASISTENTES ---
 const attendeesDB = [
     {
         name: "Ignacio Loja",
@@ -26,12 +26,13 @@ const attendeesDB = [
     }
 ];
 
-// --- Función principal de verificación ---
+// --- FUNCIONES DEL SISTEMA ---
+
 function verifyAttendance() {
     const input = document.getElementById('searchInput').value.trim().toLowerCase();
     const resultArea = document.getElementById('resultArea');
-    
-    // Limpiar resultados anteriores
+
+    // Limpiar pantalla anterior
     resultArea.innerHTML = '';
     resultArea.classList.remove('hidden');
 
@@ -40,12 +41,14 @@ function verifyAttendance() {
         return;
     }
 
-    // Mostrar mensaje de carga
-    resultArea.innerHTML = '<div class="text-center text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Buscando en registros...</div>';
+    // Mostrar mensaje de "Cargando..."
+    resultArea.innerHTML =
+        '<div class="text-center text-slate-500"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Buscando en registros...</div>';
 
+    // Simular pequeña espera para realismo
     setTimeout(() => {
-        // Búsqueda (insensible a mayúsculas/minúsculas)
-        const attendee = attendeesDB.find(p => 
+        // Buscar coincidencia (ignora mayúsculas/minúsculas)
+        const attendee = attendeesDB.find(p =>
             p.name.toLowerCase().includes(input)
         );
 
@@ -57,11 +60,11 @@ function verifyAttendance() {
     }, 600);
 }
 
-// --- Mostrar éxito ---
 function showSuccess(person) {
     const resultArea = document.getElementById('resultArea');
-    
+
     let statusBadge = '';
+
     if (person.status === 'verified') {
         statusBadge = `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"><i class="fa-solid fa-circle-check mr-1"></i> Asistencia Confirmada</span>`;
     } else if (person.status === 'pending') {
@@ -75,7 +78,7 @@ function showSuccess(person) {
             </div>
             <h3 class="text-lg leading-6 font-bold text-slate-900">${person.name}</h3>
             <div class="mt-1">${statusBadge}</div>
-            
+
             <div class="mt-4 text-left bg-white p-3 rounded-lg border border-slate-200 text-sm">
                 <div class="flex flex-col gap-2">
                     <div class="flex justify-between items-start">
@@ -88,7 +91,7 @@ function showSuccess(person) {
                     </div>
                 </div>
             </div>
-            
+
             <div class="mt-4 text-xs text-slate-400">
                 Registro oficial de la Asociación de Estudiantes.
             </div>
@@ -96,7 +99,6 @@ function showSuccess(person) {
     `;
 }
 
-// --- Mostrar no encontrado ---
 function showNotFound() {
     const resultArea = document.getElementById('resultArea');
     resultArea.innerHTML = `
@@ -115,13 +117,13 @@ function showNotFound() {
     `;
 }
 
-// --- Mostrar error ---
 function showError(msg) {
     const resultArea = document.getElementById('resultArea');
-    resultArea.innerHTML = `<div class="text-red-500 text-center text-sm"><i class="fa-solid fa-circle-exclamation mr-1"></i> ${msg}</div>`;
+    resultArea.innerHTML =
+        `<div class="text-red-500 text-center text-sm"><i class="fa-solid fa-circle-exclamation mr-1"></i> ${msg}</div>`;
 }
 
-// Event listener para tecla Enter
+// Activar búsqueda con la tecla ENTER
 document.getElementById('searchInput').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         verifyAttendance();
